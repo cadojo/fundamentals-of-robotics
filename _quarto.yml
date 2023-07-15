@@ -1,0 +1,30 @@
+project:
+  type: book
+
+book:
+  title: "Fundamentals of Robotics"
+  subtitle: A review of fundamental concepts in robotics, from coordinate frames to manipulator dynamics and control.
+  author: "Joe(y) Carpinelli"
+  date: today
+  chapters:
+    - index.qmd
+    - frames.qmd
+    - references.qmd
+
+bibliography: references.bib
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/american-institute-of-aeronautics-and-astronautics.csl
+
+
+
+format:
+  html:
+    mainfont: "'Roboto', sans-serif;"
+    monofont: "'Roboto Mono', monospace;"
+    theme: 
+      light: [ pulse,  "formatting/common.scss", "formatting/light.scss" ]
+      dark:  [ pulse,  "formatting/common.scss", "formatting/dark.scss"  ]
+  pdf:
+    documentclass: scrreprt
+
+
+

@@ -1,0 +1,29 @@
+div.quarto-about-trestles .about-entity img.rounded {
+    border-radius: 3% !important;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+a.about-link {
+    width: 7em;
+}
+
+@media (max-width: 991.98px) {
+    a.about-link {
+        width: 16em;
+        margin: auto;
+    }
+
+    div.quarto-about-trestles .about-entity img.rounded {
+        border-radius: 50% !important;
+        margin-left: 14%;
+        width: 76%;
+        margin-right: 10%;
+        margin-bottom: 1em;
+    }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto+Serif&family=Roboto:wght@300;400&display=swap');

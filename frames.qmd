@@ -1,0 +1,71 @@
+---
+title: Reference Frames
+
+execute:
+    echo: false
+    output: true
+---
+
+Reference frames exist at some point in space, at some orientation in space, relative to another reference frame. There are two ways to describe multi-axis rotations: fixed axes, and euler (rotating) axes.
+
+## Why Rotations
+
+We use rotations to answer two different questions...
+
+1.  Given $P$, what are the coordinates of **that same point** relative to $F_j$?
+    -   Answer looks like: ${}^j(P_0) = R_j P$
+2.  Given $P$, what are the coordinates of a point **in** $F_2$ that are rotated about some axis?
+    -   Answer looks like: ${}^2(P) = R_i P$
+
+How can we reconcile this?
+
+-   $R_j \equiv R_i^T$
+
+## Rotation Matrices
+
+Relating reference frames requires many (somewhat arbitrary) definitions. We may choose to relate frames by rotating axes, or fixed axes. We may choose to change the basis of a three-valued vector through rotation, or we may choose to rotate a three-valued vector in its original reference frame. For these reasons, you may see two different definitions of rotation matrices about principle axes. Both definitions are the transpose --- and due to orthonormality, the inverse --- of one another.
+
+The definitions below are the principle rotation matrices we will use moving forward. The following matrices rotate a three-valued vector by an angle of $\theta$ about each of the three basis vectors; see Equations 2.77, 2.78, and 2.79 in Craig's Introduction to Robotics [@craig].
+
+```{julia}
+#| output: false
+using KinematicChains
+```
+
+$$
+R_x(\theta) = \begin{bmatrix} 
+    1 & 0 & 0 \\
+    0 & \cos{\theta} & -\sin{\theta} \\
+    0 & \sin{\theta} &  \cos{\theta}
+\end{bmatrix}
+$$ {#eq-rx}
+
+$$
+R_y(\theta) = \begin{bmatrix} 
+     \cos{\theta} & 0 & \sin{\theta} \\
+     0 & 1 & 0 \\
+    -\sin{\theta} & 0 & \cos{\theta}
+\end{bmatrix}
+$$ {#eq-ry}
+
+$$
+R_z(\theta) = \begin{bmatrix} 
+    \cos{\theta} & -\sin{\theta} & 0 \\
+    \sin{\theta} &  \cos{\theta} & 0 \\
+    0 & 0 & 1 \\
+\end{bmatrix}
+$$ {#eq-rz}
+
+## Euler Axis Rotations
+
+There are many ways to describe rotations about multiple axes. One way is to apply a sequence of rotations about principle axes, applying each rotation to the preceding *intermediate* frame. This technique is known as *euler* sequence rotations.
+
+You might say: to get frame $B$, rotate frame $A$ by $\theta_1$ degrees about frame $A$'s $X$ axis, then rotate **that intermediate frame** $\theta_2$ degrees about the intermediate frame's $Y$ axis, etc.
+
+Euler ZYX: $R_z(\theta_3) R_y(\theta_2) R_x(\theta_1)$
+
+## Fixed Axis Rotations
+
+Fixed XYZ: $R_x(\theta_1) R_y(\theta_2) R_z(\theta_3)$
+
+## Translations & Rotations (Transformations)

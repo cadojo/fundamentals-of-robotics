@@ -1,0 +1,49 @@
+---
+title: Introduction
+---
+
+The following topics will ultimately be explored in this note-set.
+
+### Review of Coordinate Transformations {.unnumbered}
+
+- Rotations Matrices
+- Passive, active rotations
+- $4\times4$ coordinate transformation matrix
+
+### Kinematic Descriptions {.unnumbered}
+
+- Going from robot diagram to modified DH parameters
+- Assigning coordinate frames 
+
+### Forward Kinematics {.unnumbered}
+
+- Use your kinematic description to map joint angles to Cartesian positions & orientations
+
+### Translational & Rotational Jacobians {.unnumbered}
+
+- Differentiate your forward kinematic solutions with respect to joint angles to find how **joint velocities** map to **Cartesian velocities** and **anglular velocities**
+
+### Inverse Kinematics {.unnumbered}
+
+- Find joint angles to match some Cartesian _pose_
+- Generally relies on the Jacobian having full rank
+
+### Singularities {.unnumbered}
+
+- Find when the Jacobian does not have full rank
+
+### Dynamics {.unnumbered}
+
+- Apply forces through joint angles
+- Incorporate mass properties, and how they interact with Cartesian velocities & angular rates
+- Incorporating moments of inertia, other dynamical elements
+
+### Control {.unnumbered}
+
+- PID Control 
+
+### Applications {.unnumbered}
+
+- ROS: _Robot Operating System_
+- MoveIt: motion planning framework within ROS
+- Orocos KDL: Open Source Kinematics & Dynamics Solvers in C++
