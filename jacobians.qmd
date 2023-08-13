@@ -17,6 +17,24 @@ $$
 $$ {#eq-trans-jac}
 
 $$
-\begin{bmatrix} \dot{p} \\ \dot{q} \\ \dot{r} \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
+\begin{bmatrix} p \\ q \\ r \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
 $$ {#eq-rot-jac}
 
+## Direct Differentiation
+
+$$ 
+I = \left[
+\begin{array}{cccc}
+\cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 & a_{i - 1} \\
+\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) &  - d_i \sin\left( \alpha_{i - 1} \right) \\
+\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) & d_i \cos\left( \alpha_{i - 1} \right) \\
+0 & 0 & 0 & 1 \\
+\end{array}
+\right]
+$$
+
+## Translation Jacobian
+
+$$
+{}^WJ_I = \frac{\partial}{\partial \begin{bmatrix} x& y & z \end{bmatrix}} \begin{bmatrix} a_{i-1} \\ -d_i \sin\alpha_{i-1} \\ d_i \cos\alpha_{i-1} \end{bmatrix}
+$$

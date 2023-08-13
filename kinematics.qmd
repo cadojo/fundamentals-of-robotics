@@ -9,6 +9,11 @@ abstract: |
     kinematic descriptions, including URDF/XACRO files, and (modified) DH parameters.
 ---
 
+```{julia}
+#| echo: false
+using Revise
+```
+
 ## Modified DH Parameters
 
 Given a specific serial manipulator, you may apply the following steps to construct the Modified DH parameters.
@@ -51,4 +56,46 @@ $\hat{z}_{i}$.
 5. The joint angle $\theta_{i}$ is the angle from $\hat{x}_{i-1}$ to $\hat{x}_{i}$ about 
 $\hat{z}_{i}$.
 :::
+
+## Forward Kinematics
+
+```{julia}
+#| echo: false
+using Symbolics, KinematicChains
+
+a, α, d, θ, R, P, T = @variables aᵢ₋₁ αᵢ₋₁ dᵢ θᵢ Rⁱᵢ₋₁ Pⁱᵢ₋₁ Tⁱᵢ₋₁
+
+R ~ MDHRotation(α, a, d, θ).linear
+```
+
+```{julia}
+#| echo: false
+P ~ MDHTranslation(α, a, d, θ).translation
+```
+
+```{julia}
+#| echo: false
+T ~ MDHMatrix(α, a, d, θ)
+```
+
+$$
+{}^AP = T_B^A P_B
+$$ {#eq-transformation-b-to-a}
+## Examples
+ 
+Transformations matrices are **associative**, but are **not** commutative. 
+
+$$
+T_0^4 = T_0^1 T_1^2 T_2^3 T_3^4 
+$$ {#eq-transformation-example}
+
+$$
+\text{inv}(T_i^j) \triangleq T_j^i
+$$ {#eq-transformation-inverse}
+
+We might want to know the end-effector position $^BP_e$ in the base frame $B$. 
+
+$$
+^BP_e = \text{position}(T_B^0 T_0^1 ... T_N^e)
+$$
 
