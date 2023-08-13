@@ -70,6 +70,7 @@ R ~ MDHRotation(α, a, d, θ).linear
 
 ```{julia}
 #| echo: false
+#| label: eq-mdh-translation
 P ~ MDHTranslation(α, a, d, θ).translation
 ```
 

@@ -1,0 +1,8 @@
+---
+title: Inverse Kinematics
+---
+
+## Steps for Command a Robot Arm
+
+1. We are given the joint positions, $\overrightarrow{q}$. We want the arm to go to Cartesian state $\overrightarrow{p}$.
+2. Using forward kinematics, we **know** the current Cartesian state.

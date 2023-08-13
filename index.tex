@@ -1,0 +1,671 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Fundamentals of Robotics},
+  pdfauthor={Joe(y) Carpinelli},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Fundamentals of Robotics}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{A review of fundamental concepts in robotics, from coordinate
+frames to manipulator dynamics and control.}
+\author{Joe(y) Carpinelli}
+\date{2023-08-13}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, sharp corners, breakable]}{\end{tcolorbox}}\fi
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\bookmarksetup{startatroot}
+
+\hypertarget{preface}{%
+\chapter*{Preface}\label{preface}}
+\addcontentsline{toc}{chapter}{Preface}
+
+\markboth{Preface}{Preface}
+
+This is still being written! The following topics will eventually be
+explored in this note-set.
+
+\hypertarget{review-of-coordinate-transformations}{%
+\subsection*{Review of Coordinate
+Transformations}\label{review-of-coordinate-transformations}}
+\addcontentsline{toc}{subsection}{Review of Coordinate Transformations}
+
+\begin{itemize}
+\tightlist
+\item
+  Rotations Matrices
+\item
+  Passive, active rotations
+\item
+  \(4\times4\) coordinate transformation matrix
+\end{itemize}
+
+\hypertarget{kinematic-descriptions}{%
+\subsection*{Kinematic Descriptions}\label{kinematic-descriptions}}
+\addcontentsline{toc}{subsection}{Kinematic Descriptions}
+
+\begin{itemize}
+\tightlist
+\item
+  Going from robot diagram to modified DH parameters
+\item
+  Assigning coordinate frames
+\end{itemize}
+
+\hypertarget{forward-kinematics}{%
+\subsection*{Forward Kinematics}\label{forward-kinematics}}
+\addcontentsline{toc}{subsection}{Forward Kinematics}
+
+\begin{itemize}
+\tightlist
+\item
+  Use your kinematic description to map joint angles to Cartesian
+  positions \& orientations
+\end{itemize}
+
+\hypertarget{translational-rotational-jacobians}{%
+\subsection*{Translational \& Rotational
+Jacobians}\label{translational-rotational-jacobians}}
+\addcontentsline{toc}{subsection}{Translational \& Rotational Jacobians}
+
+\begin{itemize}
+\tightlist
+\item
+  Differentiate your forward kinematic solutions with respect to joint
+  angles to find how \textbf{joint velocities} map to \textbf{Cartesian
+  velocities} and \textbf{anglular velocities}
+\end{itemize}
+
+\hypertarget{inverse-kinematics}{%
+\subsection*{Inverse Kinematics}\label{inverse-kinematics}}
+\addcontentsline{toc}{subsection}{Inverse Kinematics}
+
+\begin{itemize}
+\tightlist
+\item
+  Find joint angles to match some Cartesian \emph{pose}
+\item
+  Generally relies on the Jacobian having full rank
+\end{itemize}
+
+\hypertarget{singularities}{%
+\subsection*{Singularities}\label{singularities}}
+\addcontentsline{toc}{subsection}{Singularities}
+
+\begin{itemize}
+\tightlist
+\item
+  Find when the Jacobian does not have full rank
+\end{itemize}
+
+\hypertarget{dynamics}{%
+\subsection*{Dynamics}\label{dynamics}}
+\addcontentsline{toc}{subsection}{Dynamics}
+
+\begin{itemize}
+\tightlist
+\item
+  Apply forces through joint angles
+\item
+  Incorporate mass properties, and how they interact with Cartesian
+  velocities \& angular rates
+\item
+  Incorporating moments of inertia, other dynamical elements
+\end{itemize}
+
+\hypertarget{control}{%
+\subsection*{Control}\label{control}}
+\addcontentsline{toc}{subsection}{Control}
+
+\begin{itemize}
+\tightlist
+\item
+  PID Control
+\end{itemize}
+
+\hypertarget{applications}{%
+\subsection*{Applications}\label{applications}}
+\addcontentsline{toc}{subsection}{Applications}
+
+\begin{itemize}
+\tightlist
+\item
+  ROS: \emph{Robot Operating System}
+\item
+  MoveIt: motion planning framework within ROS
+\item
+  Orocos KDL: Open Source Kinematics \& Dynamics Solvers in C++
+\end{itemize}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{reference-frames}{%
+\chapter{Reference Frames}\label{reference-frames}}
+
+Reference frames exist at some point in space, at some orientation in
+space, relative to another reference frame. There are two ways to
+describe multi-axis rotations: fixed axes, and euler (rotating) axes.
+
+\hfill\break
+
+\hypertarget{why-rotations}{%
+\section{Why Rotations}\label{why-rotations}}
+
+We use rotations to answer two different questions\ldots{}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Given \(P\), what are the coordinates of \textbf{that same point}
+  relative to \(F_j\)?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Answer looks like: \({}^j(P_0) = R_j P\)
+  \end{itemize}
+\item
+  Given \(P\), what are the coordinates of a point \textbf{in} \(F_2\)
+  that are rotated about some axis?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Answer looks like: \({}^2(P) = R_i P\)
+  \end{itemize}
+\end{enumerate}
+
+How can we reconcile this?
+
+\begin{itemize}
+\tightlist
+\item
+  \(R_j \equiv R_i^T\)
+\end{itemize}
+
+\hypertarget{rotation-matrices}{%
+\section{Rotation Matrices}\label{rotation-matrices}}
+
+Relating reference frames requires many (somewhat arbitrary)
+definitions. We may choose to relate frames by rotating axes, or fixed
+axes. We may choose to change the basis of a three-valued vector through
+rotation, or we may choose to rotate a three-valued vector in its
+original reference frame. For these reasons, you may see two different
+definitions of rotation matrices about principle axes. Both definitions
+are the transpose --- and due to orthonormality, the inverse --- of one
+another.
+
+The definitions below are the principle rotation matrices we will use
+moving forward. The following matrices rotate a three-valued vector by
+an angle of \(\theta\) about each of the three basis vectors; see
+Equations 2.77, 2.78, and 2.79 in Craig's Introduction to Robotics
+{[}1{]}.
+
+\begin{equation}\protect\hypertarget{eq-rx}{}{
+R_x(\theta) = \begin{bmatrix} 
+    1 & 0 & 0 \\
+    0 & \cos{\theta} & -\sin{\theta} \\
+    0 & \sin{\theta} &  \cos{\theta}
+\end{bmatrix}
+}\label{eq-rx}\end{equation}
+
+\begin{equation}\protect\hypertarget{eq-ry}{}{
+R_y(\theta) = \begin{bmatrix} 
+     \cos{\theta} & 0 & \sin{\theta} \\
+     0 & 1 & 0 \\
+    -\sin{\theta} & 0 & \cos{\theta}
+\end{bmatrix}
+}\label{eq-ry}\end{equation}
+
+\begin{equation}\protect\hypertarget{eq-rz}{}{
+R_z(\theta) = \begin{bmatrix} 
+    \cos{\theta} & -\sin{\theta} & 0 \\
+    \sin{\theta} &  \cos{\theta} & 0 \\
+    0 & 0 & 1 \\
+\end{bmatrix}
+}\label{eq-rz}\end{equation}
+
+\hypertarget{euler-axis-rotations}{%
+\section{Euler Axis Rotations}\label{euler-axis-rotations}}
+
+There are many ways to describe rotations about multiple axes. One way
+is to apply a sequence of rotations about principle axes, applying each
+rotation to the preceding \emph{intermediate} frame. This technique is
+known as \emph{euler} sequence rotations.
+
+You might say: to get frame \(B\), rotate frame \(A\) by \(\theta_1\)
+degrees about frame \(A\)'s \(X\) axis, then rotate \textbf{that
+intermediate frame} \(\theta_2\) degrees about the intermediate frame's
+\(Y\) axis, etc.
+
+Euler ZYX: \(R_z(\theta_3) R_y(\theta_2) R_x(\theta_1)\)
+
+\hypertarget{fixed-axis-rotations}{%
+\section{Fixed Axis Rotations}\label{fixed-axis-rotations}}
+
+Fixed XYZ: \(R_x(\theta_1) R_y(\theta_2) R_z(\theta_3)\)
+
+\hypertarget{translations-rotations-transformations}{%
+\section{Translations \& Rotations
+(Transformations)}\label{translations-rotations-transformations}}
+
+You can combine translations and rotations to create
+\emph{transformations}.
+
+\bookmarksetup{startatroot}
+
+\hypertarget{kinematic-descriptions-1}{%
+\chapter{Kinematic Descriptions}\label{kinematic-descriptions-1}}
+
+Kinematics is the study of an object's motion independent of the forces
+that cause the object's motion. For portability, we want the kinematic
+expressions for robotic manipulators to be valid for all manipulators. A
+kinematic description, in this context, contains all of the geometric
+information about a manipulator necessary to form the standard kinematic
+equations of motion. The robotics industry uses several standard
+kinematic descriptions, including URDF/XACRO files, and (modified) DH
+parameters.
+
+\hfill\break
+
+\hypertarget{modified-dh-parameters}{%
+\section{Modified DH Parameters}\label{modified-dh-parameters}}
+
+Given a specific serial manipulator, you may apply the following steps
+to construct the Modified DH parameters. Note that Modified DH
+Parameters are \textbf{not} unique. You may select multiple sets of
+parameters which yield the same kinematics.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Copy the contents of Table~\ref{tbl-mdh-template}, where \(N\) is the
+  manipulator's number of joints, and \(i\) is the index of the
+  \emph{current} joint you're inspecting. The frame with index \(0\)
+  should be the \emph{base frame} or \emph{world frame}: some frame from
+  which all joint positions can be referenced.
+\end{enumerate}
+
+\hypertarget{tbl-mdh-template}{}
+\begin{longtable}[]{@{}lllll@{}}
+\caption{\label{tbl-mdh-template}Template for Modified DH Parameters
+Table}\tabularnewline
+\toprule\noalign{}
+\(i\) & \(a_{i-1}\) & \(\alpha_{i-1}\) & \(d_i\) & \(\theta_i\) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\(i\) & \(a_{i-1}\) & \(\alpha_{i-1}\) & \(d_i\) & \(\theta_i\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & & & & \\
+2 & & & & \\
+\ldots{} & & & & \\
+\(N\) & & & & \\
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  For each index (row), assign the corresponding link frame axes and
+  fill in the values for the parameters \(a\), \(\alpha\), \(d\), and
+  \(\theta\) using the rules presented in Figure~\ref{fig-mdh-rules}.
+  The index offset \(i-1\) in the column headers can be confusing. To be
+  clear, the first values you will fill in are \(a_0\), \(\alpha_0\),
+  \(d_1\), and \(\theta_1\). The next values are \(a_1\), \(\alpha_1\),
+  \(d_2\), and \(\theta_2\).
+\end{enumerate}
+
+\begin{figure}
+
+{\centering 
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Assign axis \(\hat{z}_i\) to the direction of joint rotation if
+  revolute, or joint translation if prismatic. Assign axis \(\hat{x}_i\)
+  in any direction that is \textbf{not} the direction of
+  \(\hat{z}_{i+1}\); if you can while satisfying this condition,
+  assigning \(\hat{x}_i\) in a direction pointing towards the next joint
+  is helpful. Place the origin of frame \(i\) where \(\hat{z}_i\) and
+  \(\hat{x}_i\) intersect.
+\item
+  The link length \(a_{i}\) is the distance from \(\hat{z}_i\) to
+  \(\hat{z}_{i+1}\) along \(\hat{x}_i\). Usually this value is positive
+  or zero; negative \(a_i\) values are discouraged. If your selected
+  \(a_i\) is negative, consider changing your definition of
+  \(\hat{x}_i\) in Rule \(1\).
+\item
+  The link twist \(\alpha_{i}\) is the angle from \(\hat{z}_i\) to
+  \(\hat{z}_{i+1}\) about \(\hat{x}_i\).
+\item
+  The joint offset \(d_{i}\) is the distance from \(\hat{x}_{i-1}\) to
+  \(\hat{x}_{i}\) along \(\hat{z}_{i}\).
+\item
+  The joint angle \(\theta_{i}\) is the angle from \(\hat{x}_{i-1}\) to
+  \(\hat{x}_{i}\) about \(\hat{z}_{i}\).
+\end{enumerate}
+
+}
+
+\caption{\label{fig-mdh-rules}Rules for Selecting Modified DH Parameter
+Values}
+
+\end{figure}
+
+\hypertarget{forward-kinematics-1}{%
+\section{Forward Kinematics}\label{forward-kinematics-1}}
+
+$$ \begin{equation}
+R^i_{i - 1} = \left[
+\begin{array}{ccc}
+\cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 \\
+\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) \\
+\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \\
+\end{array}
+\right]
+\end{equation}
+ $$
+
+\hypertarget{eq-mdh-translation}{}
+$$ \begin{equation}
+P^i_{i - 1} = \left[
+\begin{array}{c}
+a_{i - 1} \\
+ - d_i \sin\left( \alpha_{i - 1} \right) \\
+d_i \cos\left( \alpha_{i - 1} \right) \\
+\end{array}
+\right]
+\end{equation}
+ $$
+
+$$ \begin{equation}
+T^i_{i - 1} = \left[
+\begin{array}{cccc}
+\cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 & a_{i - 1} \\
+\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) &  - d_i \sin\left( \alpha_{i - 1} \right) \\
+\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) & d_i \cos\left( \alpha_{i - 1} \right) \\
+0 & 0 & 0 & 1 \\
+\end{array}
+\right]
+\end{equation}
+ $$
+
+\begin{equation}\protect\hypertarget{eq-transformation-b-to-a}{}{
+{}^AP = T_B^A P_B
+}\label{eq-transformation-b-to-a}\end{equation} \#\# Examples
+
+Transformations matrices are \textbf{associative}, but are \textbf{not}
+commutative.
+
+\begin{equation}\protect\hypertarget{eq-transformation-example}{}{
+T_0^4 = T_0^1 T_1^2 T_2^3 T_3^4 
+}\label{eq-transformation-example}\end{equation}
+
+\begin{equation}\protect\hypertarget{eq-transformation-inverse}{}{
+\text{inv}(T_i^j) \triangleq T_j^i
+}\label{eq-transformation-inverse}\end{equation}
+
+We might want to know the end-effector position \(^BP_e\) in the base
+frame \(B\).
+
+\[
+^BP_e = \text{position}(T_B^0 T_0^1 ... T_N^e)
+\]
+
+\bookmarksetup{startatroot}
+
+\hypertarget{jacobians}{%
+\chapter{Jacobians}\label{jacobians}}
+
+Jacobians map joint velocities to translational and angular (Cartesian)
+velocities. The \emph{angular Cartesian velocities} are commonly
+referred to as \emph{body rates}: \(p\) is the angular rate about the
+\(X\) axis (roll), \(q\) is the angular rate about the \(Y\) axis
+(pitch), and \(r\) is the angular rate about the \(Z\) axis (yaw).
+
+\hfill\break
+
+\hypertarget{derivations}{%
+\section{Derivations}\label{derivations}}
+
+The translation and rotation Jacobians can be derived using two methods:
+direct differentiation, and the cross-product method.
+
+\begin{equation}\protect\hypertarget{eq-trans-jac}{}{
+\begin{bmatrix} \dot{x} \\ \dot{y} \\ \dot{z} \end{bmatrix} = J_T \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
+}\label{eq-trans-jac}\end{equation}
+
+\begin{equation}\protect\hypertarget{eq-rot-jac}{}{
+\begin{bmatrix} p \\ q \\ r \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
+}\label{eq-rot-jac}\end{equation}
+
+\hypertarget{direct-differentiation}{%
+\section{Direct Differentiation}\label{direct-differentiation}}
+
+\[ 
+I = \left[
+\begin{array}{cccc}
+\cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 & a_{i - 1} \\
+\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) &  - d_i \sin\left( \alpha_{i - 1} \right) \\
+\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) & d_i \cos\left( \alpha_{i - 1} \right) \\
+0 & 0 & 0 & 1 \\
+\end{array}
+\right]
+\]
+
+\hypertarget{translation-jacobian}{%
+\section{Translation Jacobian}\label{translation-jacobian}}
+
+\[
+{}^WJ_I = \frac{\partial}{\partial \begin{bmatrix} x& y & z \end{bmatrix}} \begin{bmatrix} a_{i-1} \\ -d_i \sin\alpha_{i-1} \\ d_i \cos\alpha_{i-1} \end{bmatrix}
+\]
+
+\bookmarksetup{startatroot}
+
+\hypertarget{references}{%
+\chapter*{References}\label{references}}
+\addcontentsline{toc}{chapter}{References}
+
+\markboth{References}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{0}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-craig}{}}%
+\CSLLeftMargin{{[}1{]} }%
+\CSLRightInline{Craig, J. J. \emph{Introduction to Robotics}. Pearson
+Educacion, 2006.}
+
+\end{CSLReferences}
+
+
+
+\end{document}
