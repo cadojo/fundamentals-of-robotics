@@ -9,6 +9,7 @@ book:
   chapters:
     - index.qmd
     - frames.qmd
+    - kinematics.qmd
     - jacobians.qmd
     - references.qmd
 
@@ -26,6 +27,7 @@ format:
       dark:  [ pulse,  "formatting/common.scss", "formatting/dark.scss"  ]
   pdf:
     documentclass: scrreprt
+    output-file: fundamentals-of-robotics.pdf
 
 
 

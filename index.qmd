@@ -1,6 +1,6 @@
 # Preface {.unnumbered}
 
-The following topics will ultimately be explored in this note-set.
+This is still being written! The following topics will eventually be explored in this note-set.
 
 ### Review of Coordinate Transformations {.unnumbered}
 

@@ -1,13 +1,22 @@
 ---
 title: Jacobians
+abstract: |
+    Jacobians map joint velocities to translational and angular (Cartesian) velocities. The 
+    _angular Cartesian velocities_ are commonly referred to as _body rates_: $p$ is the angular
+    rate about the $X$ axis (roll), $q$ is the angular rate about the $Y$ axis (pitch), 
+    and $r$ is the angular rate about the $Z$ axis (yaw).
 ---
 
-Jacobians map joint velocities to translational and angular (Cartesian) velocities. 
+## Derivations
+
+The translation and rotation Jacobians can be derived using two methods: direct differentiation,
+and the cross-product method.
 
 $$
-\dot{p} = J_T \dot{q}
+\begin{bmatrix} \dot{x} \\ \dot{y} \\ \dot{z} \end{bmatrix} = J_T \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
 $$ {#eq-trans-jac}
 
 $$
-\dot{R} = J_\Omega \dot{q}
+\begin{bmatrix} \dot{p} \\ \dot{q} \\ \dot{r} \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
 $$ {#eq-rot-jac}
+

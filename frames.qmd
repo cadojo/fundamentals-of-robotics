@@ -1,12 +1,13 @@
 ---
 title: Reference Frames
-
+abstract: |
+    Reference frames exist at some point in space, at some orientation in space, 
+    relative to another reference frame. There are two ways to describe multi-axis rotations: 
+    fixed axes, and euler (rotating) axes.
 execute:
     echo: false
     output: true
 ---
-
-Reference frames exist at some point in space, at some orientation in space, relative to another reference frame. There are two ways to describe multi-axis rotations: fixed axes, and euler (rotating) axes.
 
 ## Why Rotations
 
@@ -69,3 +70,5 @@ Euler ZYX: $R_z(\theta_3) R_y(\theta_2) R_x(\theta_1)$
 Fixed XYZ: $R_x(\theta_1) R_y(\theta_2) R_z(\theta_3)$
 
 ## Translations & Rotations (Transformations)
+
+You can combine translations and rotations to create _transformations_. 

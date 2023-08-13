@@ -1,0 +1,54 @@
+---
+title: Kinematic Descriptions
+abstract: |
+    Kinematics is the study of an object's motion independent of the forces that cause
+    the object's motion. For portability, we want the kinematic expressions for robotic 
+    manipulators to be valid for all manipulators. A kinematic description, in this context,
+    contains all of the geometric information about a manipulator necessary to form
+    the standard kinematic equations of motion. The robotics industry uses several standard
+    kinematic descriptions, including URDF/XACRO files, and (modified) DH parameters.
+---
+
+## Modified DH Parameters
+
+Given a specific serial manipulator, you may apply the following steps to construct the Modified DH parameters.
+Note that Modified DH Parameters are **not** unique. You may select multiple sets of parameters which
+yield the same kinematics. 
+
+1. Copy the contents of @tbl-mdh-template, where $N$ is the manipulator's number of joints, 
+and $i$ is the index of the *current* joint you're inspecting. The frame with index $0$
+should be the _base frame_ or _world frame_: some frame from which all joint positions can 
+be referenced.
+
+| $i$ | $a_{i-1}$ | $\alpha_{i-1}$ | $d_i$ | $\theta_i$ |
+|-----|-----------|----------------|-------|------------|
+| 1   |           |                |       |            |
+| 2   |           |                |       |            |
+| ... |           |                |       |            |
+| $N$ |           |                |       |            |
+
+: Template for Modified DH Parameters Table {#tbl-mdh-template}
+
+2. For each index (row), assign the corresponding link frame axes and fill in the values 
+for the parameters $a$, $\alpha$, $d$, and $\theta$ using
+the rules presented in @fig-mdh-rules. The index offset $i-1$ in the column headers can 
+be confusing. To be clear, the first values you will fill in are $a_0$, $\alpha_0$, $d_1$,
+and $\theta_1$. The next values are $a_1$, $\alpha_1$, $d_2$, and $\theta_2$.
+
+:::{#fig-mdh-rules fig-cap="Rules for Selecting Modified DH Parameter Values" style="border: 2px solid black; padding: 1em; margin: 3em;"}
+1. Assign axis $\hat{z}_i$ to the direction of joint rotation if revolute, or joint
+translation if prismatic. Assign axis $\hat{x}_i$ in any direction that is **not** the 
+direction of $\hat{z}_{i+1}$; if you can while satisfying this condition, assigning 
+$\hat{x}_i$ in a direction pointing towards the next joint is helpful. Place the origin
+of frame $i$ where $\hat{z}_i$ and $\hat{x}_i$ intersect.
+2. The link length $a_{i}$ is the distance from $\hat{z}_i$ to $\hat{z}_{i+1}$ along 
+$\hat{x}_i$. Usually this value is positive or zero; negative $a_i$ values are discouraged.
+If your selected $a_i$ is negative, consider changing your definition of $\hat{x}_i$ in Rule $1$.
+3. The link twist $\alpha_{i}$ is the angle from $\hat{z}_i$ to $\hat{z}_{i+1}$ about 
+$\hat{x}_i$.
+4. The joint offset $d_{i}$ is the distance from $\hat{x}_{i-1}$ to $\hat{x}_{i}$ along 
+$\hat{z}_{i}$.
+5. The joint angle $\theta_{i}$ is the angle from $\hat{x}_{i-1}$ to $\hat{x}_{i}$ about 
+$\hat{z}_{i}$.
+:::
+
