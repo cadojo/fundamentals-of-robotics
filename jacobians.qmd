@@ -13,24 +13,11 @@ The translation and rotation Jacobians can be derived using two methods: direct 
 and the cross-product method.
 
 $$
-P^i_{i - 1} = \left[
-\begin{array}{c}
-a_{i - 1} \\
-- d_i \sin\left( \alpha_{i - 1} \right) \\
-d_i \cos\left( \alpha_{i - 1} \right) \\
-\end{array}
-\right]
-
+\begin{bmatrix} \dot{x} \\ \dot{y} \\ \dot{z} \end{bmatrix} = J_T \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
 $$ {#eq-trans-jac}
 
 $$
-R^i_{i - 1} = \left[
-\begin{array}{ccc}
-\cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 \\
-\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) \\
-\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \\
-\end{array}
-\right]
+\begin{bmatrix} p \\ q \\ r \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
 $$ {#eq-rot-jac}
 
 ## Direct Differentiation

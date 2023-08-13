@@ -186,7 +186,7 @@ frames to manipulator dynamics and control.}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, sharp corners, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, frame hidden, sharp corners, enhanced, borderline west={3pt}{0pt}{shadecolor}, breakable]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -620,34 +620,58 @@ referred to as \emph{body rates}: \(p\) is the angular rate about the
 The translation and rotation Jacobians can be derived using two methods:
 direct differentiation, and the cross-product method.
 
-\begin{equation}\protect\hypertarget{eq-trans-jac}{}{
-\begin{bmatrix} \dot{x} \\ \dot{y} \\ \dot{z} \end{bmatrix} = J_T \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
-}\label{eq-trans-jac}\end{equation}
+\$\$ P\^{}i\_\{i - 1\} = \left[
+\begin{array}{c}
+a_{i - 1} \\
+- d_i \sin\left( \alpha_{i - 1} \right) \\
+d_i \cos\left( \alpha_{i - 1} \right) \\
+\end{array}
+\right]
+
+\$\$ \{\#eq-trans-jac\}
 
 \begin{equation}\protect\hypertarget{eq-rot-jac}{}{
-\begin{bmatrix} p \\ q \\ r \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
+R^i_{i - 1} = \left[
+\begin{array}{ccc}
+\cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 \\
+\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) \\
+\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \\
+\end{array}
+\right]
 }\label{eq-rot-jac}\end{equation}
 
 \hypertarget{direct-differentiation}{%
 \section{Direct Differentiation}\label{direct-differentiation}}
 
-\[ 
-I = \left[
-\begin{array}{cccc}
-\cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 & a_{i - 1} \\
-\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) &  - d_i \sin\left( \alpha_{i - 1} \right) \\
-\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) & d_i \cos\left( \alpha_{i - 1} \right) \\
-0 & 0 & 0 & 1 \\
-\end{array}
-\right]
-\]
-
 \hypertarget{translation-jacobian}{%
-\section{Translation Jacobian}\label{translation-jacobian}}
+\subsection{Translation Jacobian}\label{translation-jacobian}}
 
 \[
-{}^WJ_I = \frac{\partial}{\partial \begin{bmatrix} x& y & z \end{bmatrix}} \begin{bmatrix} a_{i-1} \\ -d_i \sin\alpha_{i-1} \\ d_i \cos\alpha_{i-1} \end{bmatrix}
+{}^0J_T = \frac{\partial}{\partial \overrightarrow{q}} {}^0P_T
 \]
+
+\hypertarget{cross-product-method}{%
+\section{Cross Product Method}\label{cross-product-method}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{inverse-kinematics-1}{%
+\chapter{Inverse Kinematics}\label{inverse-kinematics-1}}
+
+\hypertarget{steps-for-command-a-robot-arm}{%
+\section{Steps for Command a Robot
+Arm}\label{steps-for-command-a-robot-arm}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We are given the joint positions, \(\overrightarrow{q}\). We want the
+  arm to go to Cartesian state \(\overrightarrow{p}\).
+\item
+  Using forward kinematics, we \textbf{know} the current Cartesian
+  state.
+\end{enumerate}
 
 \bookmarksetup{startatroot}
 

@@ -9,11 +9,6 @@ abstract: |
     kinematic descriptions, including URDF/XACRO files, and (modified) DH parameters.
 ---
 
-```{julia}
-#| echo: false
-using Revise
-```
-
 ## Modified DH Parameters
 
 Given a specific serial manipulator, you may apply the following steps to construct the Modified DH parameters.
@@ -59,29 +54,43 @@ $\hat{z}_{i}$.
 
 ## Forward Kinematics
 
-```{julia}
-#| echo: false
-using Symbolics, KinematicChains
+$$
+P^i_{i - 1} = \left[
+\begin{array}{c}
+a_{i - 1} \\
+- d_i \sin\left( \alpha_{i - 1} \right) \\
+d_i \cos\left( \alpha_{i - 1} \right) \\
+\end{array}
+\right]
 
-a, α, d, θ, R, P, T = @variables aᵢ₋₁ αᵢ₋₁ dᵢ θᵢ Rⁱᵢ₋₁ Pⁱᵢ₋₁ Tⁱᵢ₋₁
+$$ {#eq-trans-fk}
 
-R ~ MDHRotation(α, a, d, θ).linear
-```
+$$
+R^i_{i - 1} = \left[
+\begin{array}{ccc}
+\cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 \\
+\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) \\
+\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \\
+\end{array}
+\right]
+$$ {#eq-rot-fk}
 
-```{julia}
-#| echo: false
-#| label: eq-mdh-translation
-P ~ MDHTranslation(α, a, d, θ).translation
-```
 
-```{julia}
-#| echo: false
-T ~ MDHMatrix(α, a, d, θ)
-```
+$$
+T^i_{i - 1} = \left[
+\begin{array}{cccc}
+\cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 & a_{i - 1} \\
+\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) &  - d_i \sin\left( \alpha_{i - 1} \right) \\
+\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) & d_i \cos\left( \alpha_{i - 1} \right) \\
+0 & 0 & 0 & 1 \\
+\end{array}
+\right]
+$$ {#eq-fk-matrix}
 
 $$
 {}^AP = T_B^A P_B
 $$ {#eq-transformation-b-to-a}
+
 ## Examples
  
 Transformations matrices are **associative**, but are **not** commutative. 
