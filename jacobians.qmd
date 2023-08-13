@@ -1,0 +1,13 @@
+---
+title: Jacobians
+---
+
+Jacobians map joint velocities to translational and angular (Cartesian) velocities. 
+
+$$
+\dot{p} = J_T \dot{q}
+$$ {#eq-trans-jac}
+
+$$
+\dot{R} = J_\Omega \dot{q}
+$$ {#eq-rot-jac}

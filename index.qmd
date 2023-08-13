@@ -1,6 +1,4 @@
----
-title: Introduction
----
+# Preface {.unnumbered}
 
 The following topics will ultimately be explored in this note-set.
 
