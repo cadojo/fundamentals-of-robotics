@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fundamentals of Robotics - 3&nbsp; Jacobians</title>
+<title>Fundamentals of Robotics - 2&nbsp; Kinematic Descriptions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./kinematics.html" rel="prev">
+<link href="./jacobians.html" rel="next">
+<link href="./frames.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./jacobians.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jacobians</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./kinematics.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kinematic Descriptions</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -120,13 +120,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./kinematics.html" class="sidebar-item-text sidebar-link">
+  <a href="./kinematics.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kinematic Descriptions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./jacobians.html" class="sidebar-item-text sidebar-link active">
+  <a href="./jacobians.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jacobians</span></span></a>
   </div>
 </li>
@@ -146,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#derivations" id="toc-derivations" class="nav-link active" data-scroll-target="#derivations"><span class="header-section-number">3.1</span> Derivations</a></li>
+  <li><a href="#modified-dh-parameters" id="toc-modified-dh-parameters" class="nav-link active" data-scroll-target="#modified-dh-parameters"><span class="header-section-number">2.1</span> Modified DH Parameters</a></li>
   </ul>
 </nav>
     </div>
@@ -155,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jacobians</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kinematic Descriptions</span></h1>
 </div>
 
 
@@ -170,21 +170,77 @@ ul.task-list li input[type="checkbox"] {
 <div>
   <div class="abstract">
     <div class="abstract-title">Abstract</div>
-    <p>Jacobians map joint velocities to translational and angular (Cartesian) velocities. The <em>angular Cartesian velocities</em> are commonly referred to as <em>body rates</em>: <span class="math inline">\(p\)</span> is the angular rate about the <span class="math inline">\(X\)</span> axis (roll), <span class="math inline">\(q\)</span> is the angular rate about the <span class="math inline">\(Y\)</span> axis (pitch), and <span class="math inline">\(r\)</span> is the angular rate about the <span class="math inline">\(Z\)</span> axis (yaw).</p>
+    <p>Kinematics is the study of an object’s motion independent of the forces that cause the object’s motion. For portability, we want the kinematic expressions for robotic manipulators to be valid for all manipulators. A kinematic description, in this context, contains all of the geometric information about a manipulator necessary to form the standard kinematic equations of motion. The robotics industry uses several standard kinematic descriptions, including URDF/XACRO files, and (modified) DH parameters.</p>
   </div>
 </div>
 
 </header>
 
-<section id="derivations" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="derivations"><span class="header-section-number">3.1</span> Derivations</h2>
-<p>The translation and rotation Jacobians can be derived using two methods: direct differentiation, and the cross-product method.</p>
-<p><span id="eq-trans-jac"><span class="math display">\[
-\begin{bmatrix} \dot{x} \\ \dot{y} \\ \dot{z} \end{bmatrix} = J_T \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
-\tag{3.1}\]</span></span></p>
-<p><span id="eq-rot-jac"><span class="math display">\[
-\begin{bmatrix} \dot{p} \\ \dot{q} \\ \dot{r} \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
-\tag{3.2}\]</span></span></p>
+<section id="modified-dh-parameters" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="modified-dh-parameters"><span class="header-section-number">2.1</span> Modified DH Parameters</h2>
+<p>Given a specific serial manipulator, you may apply the following steps to construct the Modified DH parameters. Note that Modified DH Parameters are <strong>not</strong> unique. You may select multiple sets of parameters which yield the same kinematics.</p>
+<ol type="1">
+<li>Copy the contents of <a href="#tbl-mdh-template">Table&nbsp;<span>2.1</span></a>, where <span class="math inline">\(N\)</span> is the manipulator’s number of joints, and <span class="math inline">\(i\)</span> is the index of the <em>current</em> joint you’re inspecting. The frame with index <span class="math inline">\(0\)</span> should be the <em>base frame</em> or <em>world frame</em>: some frame from which all joint positions can be referenced.</li>
+</ol>
+<div id="tbl-mdh-template" class="anchored">
+<table class="table">
+<caption>Table&nbsp;2.1: Template for Modified DH Parameters Table</caption>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(i\)</span></th>
+<th><span class="math inline">\(a_{i-1}\)</span></th>
+<th><span class="math inline">\(\alpha_{i-1}\)</span></th>
+<th><span class="math inline">\(d_i\)</span></th>
+<th><span class="math inline">\(\theta_i\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(N\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol start="2" type="1">
+<li>For each index (row), assign the corresponding link frame axes and fill in the values for the parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(d\)</span>, and <span class="math inline">\(\theta\)</span> using the rules presented in <a href="#fig-mdh-rules">Figure&nbsp;<span>2.1</span></a>. The index offset <span class="math inline">\(i-1\)</span> in the column headers can be confusing. To be clear, the first values you will fill in are <span class="math inline">\(a_0\)</span>, <span class="math inline">\(\alpha_0\)</span>, <span class="math inline">\(d_1\)</span>, and <span class="math inline">\(\theta_1\)</span>. The next values are <span class="math inline">\(a_1\)</span>, <span class="math inline">\(\alpha_1\)</span>, <span class="math inline">\(d_2\)</span>, and <span class="math inline">\(\theta_2\)</span>.</li>
+</ol>
+<div id="fig-mdh-rules" class="quarto-figure quarto-figure-center anchored" style="border: 2px solid black; padding: 1em; margin: 3em;">
+<figure class="figure">
+<ol type="1">
+<li>Assign axis <span class="math inline">\(\hat{z}_i\)</span> to the direction of joint rotation if revolute, or joint translation if prismatic. Assign axis <span class="math inline">\(\hat{x}_i\)</span> in any direction that is <strong>not</strong> the direction of <span class="math inline">\(\hat{z}_{i+1}\)</span>; if you can while satisfying this condition, assigning <span class="math inline">\(\hat{x}_i\)</span> in a direction pointing towards the next joint is helpful. Place the origin of frame <span class="math inline">\(i\)</span> where <span class="math inline">\(\hat{z}_i\)</span> and <span class="math inline">\(\hat{x}_i\)</span> intersect.</li>
+<li>The link length <span class="math inline">\(a_{i}\)</span> is the distance from <span class="math inline">\(\hat{z}_i\)</span> to <span class="math inline">\(\hat{z}_{i+1}\)</span> along <span class="math inline">\(\hat{x}_i\)</span>. Usually this value is positive or zero; negative <span class="math inline">\(a_i\)</span> values are discouraged. If your selected <span class="math inline">\(a_i\)</span> is negative, consider changing your definition of <span class="math inline">\(\hat{x}_i\)</span> in Rule <span class="math inline">\(1\)</span>.</li>
+<li>The link twist <span class="math inline">\(\alpha_{i}\)</span> is the angle from <span class="math inline">\(\hat{z}_i\)</span> to <span class="math inline">\(\hat{z}_{i+1}\)</span> about <span class="math inline">\(\hat{x}_i\)</span>.</li>
+<li>The joint offset <span class="math inline">\(d_{i}\)</span> is the distance from <span class="math inline">\(\hat{x}_{i-1}\)</span> to <span class="math inline">\(\hat{x}_{i}\)</span> along <span class="math inline">\(\hat{z}_{i}\)</span>.</li>
+<li>The joint angle <span class="math inline">\(\theta_{i}\)</span> is the angle from <span class="math inline">\(\hat{x}_{i-1}\)</span> to <span class="math inline">\(\hat{x}_{i}\)</span> about <span class="math inline">\(\hat{z}_{i}\)</span>.</li>
+</ol>
+<figcaption class="figure-caption">Figure&nbsp;2.1: Rules for Selecting Modified DH Parameter Values</figcaption>
+</figure>
+</div>
 
 
 </section>
@@ -540,13 +596,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./kinematics.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Kinematic Descriptions</span></span>
+      <a href="./frames.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Reference Frames</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./jacobians.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jacobians</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
