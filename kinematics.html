@@ -132,6 +132,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./inverse-kinematics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inverse Kinematics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -147,6 +153,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#modified-dh-parameters" id="toc-modified-dh-parameters" class="nav-link active" data-scroll-target="#modified-dh-parameters"><span class="header-section-number">2.1</span> Modified DH Parameters</a></li>
+  <li><a href="#forward-kinematics" id="toc-forward-kinematics" class="nav-link" data-scroll-target="#forward-kinematics"><span class="header-section-number">2.2</span> Forward Kinematics</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">2.3</span> Examples</a></li>
   </ul>
 </nav>
     </div>
@@ -241,6 +249,48 @@ ul.task-list li input[type="checkbox"] {
 <figcaption class="figure-caption">Figure&nbsp;2.1: Rules for Selecting Modified DH Parameter Values</figcaption>
 </figure>
 </div>
+</section>
+<section id="forward-kinematics" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="forward-kinematics"><span class="header-section-number">2.2</span> Forward Kinematics</h2>
+<p><span id="eq-trans-fk"><span class="math display">\[
+P^i_{i - 1} = \begin{bmatrix}
+a_{i - 1} \\
+- d_i \sin\left( \alpha_{i - 1} \right) \\
+d_i \cos\left( \alpha_{i - 1} \right) \\
+\end{bmatrix}
+\tag{2.1}\]</span></span></p>
+<p><span id="eq-rot-fk"><span class="math display">\[
+R^i_{i - 1} = \begin{bmatrix}
+\cos\left( \theta_i \right) &amp;  - \sin\left( \theta_i \right) &amp; 0 \\
+\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) &amp; \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &amp;  - \sin\left( \alpha_{i - 1} \right) \\
+\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) &amp; \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &amp; \cos\left( \alpha_{i - 1} \right) \\
+\end{bmatrix}
+\tag{2.2}\]</span></span></p>
+<p><span id="eq-fk-matrix"><span class="math display">\[
+T^i_{i - 1} = \begin{bmatrix}
+\cos\left( \theta_i \right) &amp;  - \sin\left( \theta_i \right) &amp; 0 &amp; a_{i - 1} \\
+\cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) &amp; \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &amp;  - \sin\left( \alpha_{i - 1} \right) &amp;  - d_i \sin\left( \alpha_{i - 1} \right) \\
+\sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) &amp; \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &amp; \cos\left( \alpha_{i - 1} \right) &amp; d_i \cos\left( \alpha_{i - 1} \right) \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\tag{2.3}\]</span></span></p>
+<p><span id="eq-transformation-b-to-a"><span class="math display">\[
+{}^AP = T_B^A P_B
+\tag{2.4}\]</span></span></p>
+</section>
+<section id="examples" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="examples"><span class="header-section-number">2.3</span> Examples</h2>
+<p>Transformations matrices are <strong>associative</strong>, but are <strong>not</strong> commutative.</p>
+<p><span id="eq-transformation-example"><span class="math display">\[
+T_0^4 = T_0^1 T_1^2 T_2^3 T_3^4
+\tag{2.5}\]</span></span></p>
+<p><span id="eq-transformation-inverse"><span class="math display">\[
+\text{inv}(T_i^j) \triangleq T_j^i
+\tag{2.6}\]</span></span></p>
+<p>We might want to know the end-effector position <span class="math inline">\(^BP_e\)</span> in the base frame <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[
+^BP_e = \text{position}(T_B^0 T_0^1 ... T_N^e)
+\]</span></p>
 
 
 </section>

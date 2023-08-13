@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./inverse-kinematics.html" rel="next">
 <link href="./kinematics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -132,6 +132,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./inverse-kinematics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inverse Kinematics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -147,6 +153,11 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#derivations" id="toc-derivations" class="nav-link active" data-scroll-target="#derivations"><span class="header-section-number">3.1</span> Derivations</a></li>
+  <li><a href="#direct-differentiation" id="toc-direct-differentiation" class="nav-link" data-scroll-target="#direct-differentiation"><span class="header-section-number">3.2</span> Direct Differentiation</a>
+  <ul class="collapse">
+  <li><a href="#translation-jacobian" id="toc-translation-jacobian" class="nav-link" data-scroll-target="#translation-jacobian"><span class="header-section-number">3.2.1</span> Translation Jacobian</a></li>
+  </ul></li>
+  <li><a href="#cross-product-method" id="toc-cross-product-method" class="nav-link" data-scroll-target="#cross-product-method"><span class="header-section-number">3.3</span> Cross Product Method</a></li>
   </ul>
 </nav>
     </div>
@@ -183,8 +194,20 @@ ul.task-list li input[type="checkbox"] {
 \begin{bmatrix} \dot{x} \\ \dot{y} \\ \dot{z} \end{bmatrix} = J_T \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
 \tag{3.1}\]</span></span></p>
 <p><span id="eq-rot-jac"><span class="math display">\[
-\begin{bmatrix} \dot{p} \\ \dot{q} \\ \dot{r} \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
+\begin{bmatrix} p \\ q \\ r \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
 \tag{3.2}\]</span></span></p>
+</section>
+<section id="direct-differentiation" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="direct-differentiation"><span class="header-section-number">3.2</span> Direct Differentiation</h2>
+<section id="translation-jacobian" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="translation-jacobian"><span class="header-section-number">3.2.1</span> Translation Jacobian</h3>
+<p><span class="math display">\[
+{}^0J_T = \frac{\partial}{\partial \overrightarrow{q}} {}^0P_T
+\]</span></p>
+</section>
+</section>
+<section id="cross-product-method" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="cross-product-method"><span class="header-section-number">3.3</span> Cross Product Method</h2>
 
 
 </section>
@@ -545,8 +568,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./inverse-kinematics.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Inverse Kinematics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

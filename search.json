@@ -49,11 +49,46 @@
     "text": "2.1 Modified DH Parameters\nGiven a specific serial manipulator, you may apply the following steps to construct the Modified DH parameters. Note that Modified DH Parameters are not unique. You may select multiple sets of parameters which yield the same kinematics.\n\nCopy the contents of Table 2.1, where \\(N\\) is the manipulator’s number of joints, and \\(i\\) is the index of the current joint you’re inspecting. The frame with index \\(0\\) should be the base frame or world frame: some frame from which all joint positions can be referenced.\n\n\n\nTable 2.1: Template for Modified DH Parameters Table\n\n\n\\(i\\)\n\\(a_{i-1}\\)\n\\(\\alpha_{i-1}\\)\n\\(d_i\\)\n\\(\\theta_i\\)\n\n\n\n\n1\n\n\n\n\n\n\n2\n\n\n\n\n\n\n…\n\n\n\n\n\n\n\\(N\\)\n\n\n\n\n\n\n\n\n\nFor each index (row), assign the corresponding link frame axes and fill in the values for the parameters \\(a\\), \\(\\alpha\\), \\(d\\), and \\(\\theta\\) using the rules presented in Figure 2.1. The index offset \\(i-1\\) in the column headers can be confusing. To be clear, the first values you will fill in are \\(a_0\\), \\(\\alpha_0\\), \\(d_1\\), and \\(\\theta_1\\). The next values are \\(a_1\\), \\(\\alpha_1\\), \\(d_2\\), and \\(\\theta_2\\).\n\n\n\n\nAssign axis \\(\\hat{z}_i\\) to the direction of joint rotation if revolute, or joint translation if prismatic. Assign axis \\(\\hat{x}_i\\) in any direction that is not the direction of \\(\\hat{z}_{i+1}\\); if you can while satisfying this condition, assigning \\(\\hat{x}_i\\) in a direction pointing towards the next joint is helpful. Place the origin of frame \\(i\\) where \\(\\hat{z}_i\\) and \\(\\hat{x}_i\\) intersect.\nThe link length \\(a_{i}\\) is the distance from \\(\\hat{z}_i\\) to \\(\\hat{z}_{i+1}\\) along \\(\\hat{x}_i\\). Usually this value is positive or zero; negative \\(a_i\\) values are discouraged. If your selected \\(a_i\\) is negative, consider changing your definition of \\(\\hat{x}_i\\) in Rule \\(1\\).\nThe link twist \\(\\alpha_{i}\\) is the angle from \\(\\hat{z}_i\\) to \\(\\hat{z}_{i+1}\\) about \\(\\hat{x}_i\\).\nThe joint offset \\(d_{i}\\) is the distance from \\(\\hat{x}_{i-1}\\) to \\(\\hat{x}_{i}\\) along \\(\\hat{z}_{i}\\).\nThe joint angle \\(\\theta_{i}\\) is the angle from \\(\\hat{x}_{i-1}\\) to \\(\\hat{x}_{i}\\) about \\(\\hat{z}_{i}\\).\n\nFigure 2.1: Rules for Selecting Modified DH Parameter Values"
   },
   {
+    "objectID": "kinematics.html#forward-kinematics",
+    "href": "kinematics.html#forward-kinematics",
+    "title": "2  Kinematic Descriptions",
+    "section": "2.2 Forward Kinematics",
+    "text": "2.2 Forward Kinematics\n\\[\nP^i_{i - 1} = \\begin{bmatrix}\na_{i - 1} \\\\\n- d_i \\sin\\left( \\alpha_{i - 1} \\right) \\\\\nd_i \\cos\\left( \\alpha_{i - 1} \\right) \\\\\n\\end{bmatrix}\n\\tag{2.1}\\]\n\\[\nR^i_{i - 1} = \\begin{bmatrix}\n\\cos\\left( \\theta_i \\right) &  - \\sin\\left( \\theta_i \\right) & 0 \\\\\n\\cos\\left( \\alpha_{i - 1} \\right) \\sin\\left( \\theta_i \\right) & \\cos\\left( \\alpha_{i - 1} \\right) \\cos\\left( \\theta_i \\right) &  - \\sin\\left( \\alpha_{i - 1} \\right) \\\\\n\\sin\\left( \\alpha_{i - 1} \\right) \\sin\\left( \\theta_i \\right) & \\sin\\left( \\alpha_{i - 1} \\right) \\cos\\left( \\theta_i \\right) & \\cos\\left( \\alpha_{i - 1} \\right) \\\\\n\\end{bmatrix}\n\\tag{2.2}\\]\n\\[\nT^i_{i - 1} = \\begin{bmatrix}\n\\cos\\left( \\theta_i \\right) &  - \\sin\\left( \\theta_i \\right) & 0 & a_{i - 1} \\\\\n\\cos\\left( \\alpha_{i - 1} \\right) \\sin\\left( \\theta_i \\right) & \\cos\\left( \\alpha_{i - 1} \\right) \\cos\\left( \\theta_i \\right) &  - \\sin\\left( \\alpha_{i - 1} \\right) &  - d_i \\sin\\left( \\alpha_{i - 1} \\right) \\\\\n\\sin\\left( \\alpha_{i - 1} \\right) \\sin\\left( \\theta_i \\right) & \\sin\\left( \\alpha_{i - 1} \\right) \\cos\\left( \\theta_i \\right) & \\cos\\left( \\alpha_{i - 1} \\right) & d_i \\cos\\left( \\alpha_{i - 1} \\right) \\\\\n0 & 0 & 0 & 1 \\\\\n\\end{bmatrix}\n\\tag{2.3}\\]\n\\[\n{}^AP = T_B^A P_B\n\\tag{2.4}\\]"
+  },
+  {
+    "objectID": "kinematics.html#examples",
+    "href": "kinematics.html#examples",
+    "title": "2  Kinematic Descriptions",
+    "section": "2.3 Examples",
+    "text": "2.3 Examples\nTransformations matrices are associative, but are not commutative.\n\\[\nT_0^4 = T_0^1 T_1^2 T_2^3 T_3^4\n\\tag{2.5}\\]\n\\[\n\\text{inv}(T_i^j) \\triangleq T_j^i\n\\tag{2.6}\\]\nWe might want to know the end-effector position \\(^BP_e\\) in the base frame \\(B\\).\n\\[\n^BP_e = \\text{position}(T_B^0 T_0^1 ... T_N^e)\n\\]"
+  },
+  {
     "objectID": "jacobians.html#derivations",
     "href": "jacobians.html#derivations",
     "title": "3  Jacobians",
     "section": "3.1 Derivations",
-    "text": "3.1 Derivations\nThe translation and rotation Jacobians can be derived using two methods: direct differentiation, and the cross-product method.\n\\[\n\\begin{bmatrix} \\dot{x} \\\\ \\dot{y} \\\\ \\dot{z} \\end{bmatrix} = J_T \\begin{bmatrix} \\dot{q_1} \\\\ \\dot{q_2} \\\\ ... \\\\ \\dot{q_n} \\end{bmatrix}\n\\tag{3.1}\\]\n\\[\n\\begin{bmatrix} \\dot{p} \\\\ \\dot{q} \\\\ \\dot{r} \\end{bmatrix} = J_\\Omega \\begin{bmatrix} \\dot{q_1} \\\\ \\dot{q_2} \\\\ ... \\\\ \\dot{q_n} \\end{bmatrix}\n\\tag{3.2}\\]"
+    "text": "3.1 Derivations\nThe translation and rotation Jacobians can be derived using two methods: direct differentiation, and the cross-product method.\n\\[\n\\begin{bmatrix} \\dot{x} \\\\ \\dot{y} \\\\ \\dot{z} \\end{bmatrix} = J_T \\begin{bmatrix} \\dot{q_1} \\\\ \\dot{q_2} \\\\ ... \\\\ \\dot{q_n} \\end{bmatrix}\n\\tag{3.1}\\]\n\\[\n\\begin{bmatrix} p \\\\ q \\\\ r \\end{bmatrix} = J_\\Omega \\begin{bmatrix} \\dot{q_1} \\\\ \\dot{q_2} \\\\ ... \\\\ \\dot{q_n} \\end{bmatrix}\n\\tag{3.2}\\]"
+  },
+  {
+    "objectID": "jacobians.html#direct-differentiation",
+    "href": "jacobians.html#direct-differentiation",
+    "title": "3  Jacobians",
+    "section": "3.2 Direct Differentiation",
+    "text": "3.2 Direct Differentiation\n\n3.2.1 Translation Jacobian\n\\[\n{}^0J_T = \\frac{\\partial}{\\partial \\overrightarrow{q}} {}^0P_T\n\\]"
+  },
+  {
+    "objectID": "jacobians.html#cross-product-method",
+    "href": "jacobians.html#cross-product-method",
+    "title": "3  Jacobians",
+    "section": "3.3 Cross Product Method",
+    "text": "3.3 Cross Product Method"
+  },
+  {
+    "objectID": "inverse-kinematics.html#steps-for-command-a-robot-arm",
+    "href": "inverse-kinematics.html#steps-for-command-a-robot-arm",
+    "title": "4  Inverse Kinematics",
+    "section": "4.1 Steps for Command a Robot Arm",
+    "text": "4.1 Steps for Command a Robot Arm\n\nWe are given the joint positions, \\(\\overrightarrow{q}\\). We want the arm to go to Cartesian state \\(\\overrightarrow{p}\\).\nUsing forward kinematics, we know the current Cartesian state."
   },
   {
     "objectID": "references.html",
