@@ -55,36 +55,29 @@ $\hat{z}_{i}$.
 ## Forward Kinematics
 
 $$
-P^i_{i - 1} = \left[
-\begin{array}{c}
+P^i_{i - 1} = \begin{bmatrix}
 a_{i - 1} \\
 - d_i \sin\left( \alpha_{i - 1} \right) \\
 d_i \cos\left( \alpha_{i - 1} \right) \\
-\end{array}
-\right]
-
+\end{bmatrix}
 $$ {#eq-trans-fk}
 
 $$
-R^i_{i - 1} = \left[
-\begin{array}{ccc}
+R^i_{i - 1} = \begin{bmatrix}
 \cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 \\
 \cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) \\
 \sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \\
-\end{array}
-\right]
+\end{bmatrix}
 $$ {#eq-rot-fk}
 
 
 $$
-T^i_{i - 1} = \left[
-\begin{array}{cccc}
+T^i_{i - 1} = \begin{bmatrix}
 \cos\left( \theta_i \right) &  - \sin\left( \theta_i \right) & 0 & a_{i - 1} \\
 \cos\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) &  - \sin\left( \alpha_{i - 1} \right) &  - d_i \sin\left( \alpha_{i - 1} \right) \\
 \sin\left( \alpha_{i - 1} \right) \sin\left( \theta_i \right) & \sin\left( \alpha_{i - 1} \right) \cos\left( \theta_i \right) & \cos\left( \alpha_{i - 1} \right) & d_i \cos\left( \alpha_{i - 1} \right) \\
 0 & 0 & 0 & 1 \\
-\end{array}
-\right]
+\end{bmatrix}
 $$ {#eq-fk-matrix}
 
 $$

@@ -13,6 +13,7 @@ book:
     - jacobians.qmd
     - inverse-kinematics.qmd
     - references.qmd
+  output-file: notes
 
 bibliography: references.bib
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/american-institute-of-aeronautics-and-astronautics.csl
@@ -28,7 +29,6 @@ format:
       dark:  [ pulse,  "formatting/common.scss", "formatting/dark.scss"  ]
   pdf:
     documentclass: scrreprt
-    output-file: fundamentals-of-robotics.pdf
 
 
 
