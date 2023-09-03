@@ -18,8 +18,6 @@ book:
 bibliography: references.bib
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/american-institute-of-aeronautics-and-astronautics.csl
 
-
-
 format:
   html:
     mainfont: "'Roboto', sans-serif;"

@@ -20,6 +20,10 @@ $$
 \begin{bmatrix} p \\ q \\ r \end{bmatrix} = J_\Omega \begin{bmatrix} \dot{q_1} \\ \dot{q_2} \\ ... \\ \dot{q_n} \end{bmatrix}
 $$ {#eq-rot-jac}
 
+$$
+J_F = \begin{bmatrix} J_T & \overrightarrow{0} \\ \overrightarrow{0} & J_\Omega \end{bmatrix}
+$$ {#eq-full-jac}
+
 ## Direct Differentiation
 
 ### Translation Jacobian
@@ -27,6 +31,24 @@ $$ {#eq-rot-jac}
 $$
 {}^0J_T = \frac{\partial}{\partial \overrightarrow{q}} {}^0P_T
 $$
+
+#### Example
+
+$$
+\begin{bmatrix} x(\theta) \\ y(\theta) \\ z(\theta) \end{bmatrix}
+$$
+
+$$
+J = \begin{bmatrix}
+\frac{\partial x}{\partial \theta_1} & \frac{\partial x}{\partial \theta_2} & \frac{\partial x}{\partial \theta_3} \\
+\frac{\partial y}{\partial \theta_1} & \frac{\partial y}{\partial \theta_2} & \frac{\partial y}{\partial \theta_3} \\
+\frac{\partial z}{\partial \theta_1} & \frac{\partial z}{\partial \theta_2} & \frac{\partial z}{\partial \theta_3} \\
+\end{bmatrix}
+$$
+
+### Rotation Jacobian
+
+
 
 ## Cross Product Method
 
